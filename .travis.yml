@@ -30,9 +30,6 @@ before_install:
 install:
   - mysql -e "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'localhost';"
   - mvn -version
-  - pushd lib; ./install-libs.sh; popd
-  - gem install jekyll
-  - gem install pygments.rb
   - source .ci/install_deps.sh
 
 script: pushd irida_import; xvfb-run py.test -s; popd
