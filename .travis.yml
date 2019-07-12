@@ -32,4 +32,4 @@ install:
   - mvn -version
   - source .ci/install_deps.sh
 
-script: pushd irida_import; xvfb-run py.test -s; popd
+script: pushd irida_import && xvfb-run py.test -s && popd

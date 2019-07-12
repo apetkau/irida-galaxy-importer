@@ -10,7 +10,7 @@ mkdir repos
 pushd repos
 
 echo "Downloading IRIDA..."
-git clone http://gitlab-ci-token:b71f6552f4cbe6f7d3f6faad8939b9@gitlab-irida.corefacility.ca/irida/irida.git
+git clone https://github.com/phac-nml/irida.git
 pushd irida
 git checkout development > irida-checkout.log 2>&1
 git fetch
