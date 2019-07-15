@@ -12,11 +12,12 @@ pushd repos
 echo "Downloading IRIDA..."
 git clone https://github.com/phac-nml/irida.git
 pushd irida
-git checkout development > irida-checkout.log 2>&1
-git fetch
-git reset --hard
-git clean -fd
-git pull
+#git checkout development > irida-checkout.log 2>&1
+git checkout 7d4480b9b8d04e6c93e58b7e90f8648ed8746ead > irida-checkout.log 2>&1
+#git fetch
+#git reset --hard
+#git clean -fd
+#git pull
 echo "Preparing IRIDA for first excecution..."
 rm -rf /tmp/shed_tools/
 pkill -u $USER -f "python ./scripts/paster.py" || true
