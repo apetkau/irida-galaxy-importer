@@ -33,6 +33,7 @@ before_install:
 install:
   - mysql -e "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'localhost';"
   - mvn -version
+  - xvfb-run -h
   - source .ci/install_deps.sh
 
 script: pushd irida_import && xvfb-run --server-args="-screen 0 1024x768x24" py.test -s && popd
