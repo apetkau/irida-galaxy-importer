@@ -31,7 +31,7 @@ echo "IRIDA has been installed"
 echo "Downloading Galaxy..."
 git clone https://github.com/galaxyproject/galaxy/ > galaxy-clone.log 2>&1
 pushd galaxy
-git checkout master > galaxy-checkout.log 2>&1
+git checkout release_18.09 > galaxy-checkout.log 2>&1
 git fetch
 git reset --hard
 git clean -fd
