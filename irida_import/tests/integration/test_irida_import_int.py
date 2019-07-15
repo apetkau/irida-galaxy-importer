@@ -156,7 +156,7 @@ class TestIridaImportInt:
         except KeyError:
             stop_irida()
             subprocess32.call(self.IRIDA_DB_RESET, shell=True)
-            subprocess32.Popen(self.IRIDA_CMD, cwd=self.IRIDA, env=os.environ, stdout=subprocess32.DEVNULL)
+            subprocess32.Popen(self.IRIDA_CMD, cwd=self.IRIDA, env=os.environ)
             util.wait_until_up(self.IRIDA_DOMAIN, self.IRIDA_PORT,
                                self.TIMEOUT)
 
