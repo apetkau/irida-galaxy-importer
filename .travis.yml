@@ -6,6 +6,7 @@ dist: xenial
 services:
   - docker
   - mysql
+  - xvfb
 
 addons:
   chrome: stable
@@ -35,4 +36,4 @@ install:
   - mvn -version
   - source .ci/install_deps.sh
 
-script: pushd irida_import && xvfb-run py.test -s && popd
+script: pushd irida_import && xvfb-run --server-args="-screen 0 1024x768x24" py.test -s && popd
