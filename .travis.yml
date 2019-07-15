@@ -6,6 +6,7 @@ dist: xenial
 services:
   - docker
   - mysql
+  - postgresql
   - xvfb
 
 addons:
@@ -33,6 +34,7 @@ before_install:
 
 install:
   - mysql -e "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'localhost';"
+  - psql -c 'create database galaxy_test;' -U postgres
   - mvn -version
   - xvfb-run -h
   - source .ci/install_deps.sh
