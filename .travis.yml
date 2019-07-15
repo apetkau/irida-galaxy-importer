@@ -37,4 +37,4 @@ install:
   - xvfb-run -h
   - source .ci/install_deps.sh
 
-script: pushd irida_import && xvfb-run --server-args="-screen 0 1024x768x24" py.test -s && popd
+script: pushd irida_import && py.test -s && popd
