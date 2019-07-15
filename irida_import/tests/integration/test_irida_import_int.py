@@ -156,7 +156,7 @@ class TestIridaImportInt:
         except KeyError:
             stop_irida()
             subprocess32.call(self.IRIDA_DB_RESET, shell=True)
-            subprocess32.Popen(self.IRIDA_CMD, cwd=self.IRIDA, env=os.environ)
+            subprocess32.Popen(self.IRIDA_CMD, cwd=self.IRIDA, env=os.environ, stdout=subprocess32.DEVNULL)
             util.wait_until_up(self.IRIDA_DOMAIN, self.IRIDA_PORT,
                                self.TIMEOUT)
 
@@ -186,7 +186,7 @@ class TestIridaImportInt:
         except KeyError:
             stop_galaxy()
             subprocess32.call(self.GALAXY_DB_RESET, shell=True)
-            subprocess32.Popen(self.GALAXY_CMD, cwd=self.GALAXY)
+            subprocess32.Popen(self.GALAXY_CMD, cwd=self.GALAXY, stdout=subprocess32.DEVNULL)
             util.wait_until_up(
                 self.GALAXY_DOMAIN,
                 self.GALAXY_PORT,
