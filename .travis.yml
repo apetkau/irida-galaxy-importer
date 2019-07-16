@@ -33,10 +33,10 @@ before_install:
   - sudo apt-get install libgconf-2-4
 
 install:
+  - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
   - mysql -e "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'localhost';"
   - psql -c 'create database galaxy_test;' -U postgres
   - mvn -version
-  - xvfb-run -h
   - source .ci/install_deps.sh
 
 script: pushd irida_import && py.test -s && popd
