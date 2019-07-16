@@ -15,9 +15,6 @@ addons:
 jdk:
   - openjdk8
 
-rvm:
-  - 2.4.1
-
 env:
   global:
     - "MYSQL_DATABASE=irida_test"
