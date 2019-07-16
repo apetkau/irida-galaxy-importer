@@ -11,4 +11,4 @@ sudo mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VER
 sudo chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION
 sudo ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
 
-sudo echo '{ "allow_root": true }' > /root/.bowerrc
+echo '{ "allow_root": true }' | sudo tee /root/.bowerrc > /dev/null
