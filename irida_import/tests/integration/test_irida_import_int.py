@@ -48,9 +48,7 @@ class TestIridaImportInt:
     GALAXY_DOMAIN = 'localhost'
     GALAXY_CMD = ['bash', 'run.sh']
     GALAXY_STOP = 'pkill -u ' + USER + ' -f "python ./scripts/paster.py"'
-    GALAXY_DB_RESET = 'echo "drop database if exists external_galaxy_test;'\
-        ' create database external_galaxy_test;'\
-        '"| mysql -u test -ptest'
+    GALAXY_DB_RESET = 'psql -c "drop database if exists galaxy_test; create database galaxy_test;" -U postgres'
 
     IRIDA_DOMAIN = 'localhost'
     IRIDA_PORT = 8080
@@ -186,7 +184,7 @@ class TestIridaImportInt:
         except KeyError:
             stop_galaxy()
             subprocess32.call(self.GALAXY_DB_RESET, shell=True)
-            subprocess32.Popen(self.GALAXY_CMD, cwd=self.GALAXY, stdout=subprocess32.DEVNULL)
+            subprocess32.Popen(self.GALAXY_CMD, cwd=self.GALAXY)
             util.wait_until_up(
                 self.GALAXY_DOMAIN,
                 self.GALAXY_PORT,
