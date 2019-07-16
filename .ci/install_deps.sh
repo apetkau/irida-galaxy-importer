@@ -1,7 +1,7 @@
 #!/bin/bash -e
 virtualenv venv
 source venv/bin/activate
-pip install -U bioblend pytest pytest-cov pytest-mock requests==2.6 requests-oauthlib==0.4.2 subprocess32 selenium
+pip install -U bioblend pytest pytest-cov pytest-mock requests==2.6 requests-oauthlib==1.2.0 subprocess32 selenium
 
 # Install chromedriver
 CHROME_DRIVER_VERSION=75.0.3770.140

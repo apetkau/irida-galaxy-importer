@@ -31,7 +31,8 @@ echo "IRIDA has been installed"
 echo "Downloading Galaxy..."
 git clone https://github.com/galaxyproject/galaxy/ > galaxy-clone.log 2>&1
 pushd galaxy
-git checkout release_18.09 > galaxy-checkout.log 2>&1
+git checkout master > galaxy-checkout.log 2>&1
+#git checkout release_18.09 > galaxy-checkout.log 2>&1
 git fetch
 git reset --hard
 git clean -fd
@@ -52,7 +53,7 @@ sed -i 's/#allow_path_paste: false/allow_path_paste: true/' galaxy.yml
 sed -i 's/#library_import_dir.*/library_import_dir: \//'  galaxy.yml
 
 # use MySQL instead of sqlite; to be configured to use a database user and name specified in README.md
-echo "  database_connection: postgres://localhost/galaxy_test" | cat >> galaxy.yml
+echo "  database_connection: postgresql:///galaxy_test" | cat >> galaxy.yml
 
 # add admin e-mail user
 sed -i 's/#admin_users: null/admin_users: irida@irida.ca/' galaxy.yml
