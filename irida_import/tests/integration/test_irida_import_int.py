@@ -210,7 +210,6 @@ class TestIridaImportInt:
         """Verify that IRIDA is accessible"""
         driver.get(self.IRIDA_URL)
 
-    @pytest.mark.skip
     def test_tool_visible(self, setup_galaxy, driver):
         """Make sure there is a link to the tool in Galaxy"""
         driver.get(self.GALAXY_URL)
@@ -329,7 +328,6 @@ class TestIridaImportInt:
         href = next(link['href'] for link in links if link['rel'] == rel)
         return href
 
-    @pytest.mark.skip
     def test_project_samples_import(self, setup_irida, setup_galaxy,
                                     driver, tmpdir):
         """Verify that sequence files can be imported from IRIDA to Galaxy"""
