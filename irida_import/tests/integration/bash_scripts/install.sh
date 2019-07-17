@@ -13,7 +13,6 @@ echo "Downloading IRIDA..."
 git clone https://github.com/phac-nml/irida.git
 pushd irida
 git checkout development > irida-checkout.log 2>&1
-#git checkout 7d4480b9b8d04e6c93e58b7e90f8648ed8746ead > irida-checkout.log 2>&1
 git fetch
 git reset --hard
 git clean -fd
@@ -31,8 +30,7 @@ echo "IRIDA has been installed"
 echo "Downloading Galaxy..."
 git clone https://github.com/galaxyproject/galaxy/ > galaxy-clone.log 2>&1
 pushd galaxy
-git checkout master > galaxy-checkout.log 2>&1
-#git checkout release_18.09 > galaxy-checkout.log 2>&1
+git checkout release_19.05 > galaxy-checkout.log 2>&1
 git fetch
 git reset --hard
 git clean -fd
