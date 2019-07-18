@@ -8,6 +8,7 @@ import os
 import ConfigParser
 import pytest
 import subprocess32
+from tempfile import mkdtemp
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
@@ -30,7 +31,6 @@ from bioblend import galaxy
 # os.environ['IRIDA_GALAXY_TOOL_TESTS_DONT_START_IRIDA'] = "1"
 
 
-@pytest.mark.integration
 class TestIridaImportInt:
     """
     Perform integration tests on the IRIDA import tool for Galaxy
@@ -154,6 +154,16 @@ class TestIridaImportInt:
             os.environ['IRIDA_GALAXY_TOOL_TESTS_DONT_START_IRIDA']
         except KeyError:
             stop_irida()
+
+            # create temporary directories for IRIDA data
+            data_dir = mkdtemp(prefix='irida-tmp-')
+            sequence_file_dir = mkdtemp(prefix='sequence-files-',dir=data_dir)
+            reference_file_dir = mkdtemp(prefix='reference-files-',dir=data_dir)
+            output_file_dir = mkdtemp(prefix='output-files-',dir=data_dir)
+            self.IRIDA_CMD.append('-Dsequence.file.base.directory='+sequence_file_dir)
+            self.IRIDA_CMD.append('-Dreference.file.base.directory='+reference_file_dir)
+            self.IRIDA_CMD.append('-Doutput.file.base.directory='+output_file_dir)
+
             subprocess32.call(self.IRIDA_DB_RESET, shell=True)
             subprocess32.Popen(self.IRIDA_CMD, cwd=self.IRIDA, env=os.environ)
             util.wait_until_up(self.IRIDA_DOMAIN, self.IRIDA_PORT,
@@ -398,25 +408,15 @@ class TestIridaImportInt:
                 if timeout == 60:
                     raise
 
-        driver.find_element_by_xpath("//button[contains(@class, 't-export-samples-btn')]").click()
+        driver.find_element_by_id("cart-add-btn").click()
+        driver.find_element_by_id("cart-show-btn").click()
 
-        driver.find_element_by_xpath("//li/a[contains(@ng-click, 'gExportCtrl.exportToGalaxy')]").click()
+        email_input=driver.find_element_by_xpath("//form[contains(@class, 'ant-form')]//input[@type='text']")
+        email_input.clear()
+        email_input.send_keys(self.EMAIL)
 
-        WebDriverWait(driver, self.WAIT).until(
-            EC.presence_of_element_located((By.ID, self.IRIDA_GALAXY_MODAL))
-        )
-
-        driver.find_element_by_id('email').clear()
-        driver.find_element_by_id('email').send_keys(self.EMAIL)
-
-        # true by default, so this is disabling it
-        driver.find_element_by_id('makepairedcollection').click()
-        driver.find_element_by_id('addtohistory').click()
-
-        with pytest.raises(ElementNotVisibleException):
-            driver.find_element_by_id('makepairedcollection').click()
-
-        driver.find_element_by_xpath("//button[contains(@ng-click, 'gCtrl.upload()')]").click()
+        # Click "Export Samples to Galaxy" button
+        driver.find_element_by_xpath("//button[span[text()='Export Samples to Galaxy']]").click()
 
         WebDriverWait(driver, self.WAIT).until(
             EC.presence_of_element_located((By.ID, 'current-history-panel'))
@@ -618,9 +618,3 @@ class TestIridaImportInt:
 
         assert (succeeded - initially_succeeded == 4,
                 "Import did not complete successfully")
-
-    @pytest.mark.skip
-    def test_cart_import_multi_project(self, setup_irida, setup_galaxy,
-                                       driver):
-        """Using the cart, import multiple projects from IRIDA to Galaxy"""
-        return True

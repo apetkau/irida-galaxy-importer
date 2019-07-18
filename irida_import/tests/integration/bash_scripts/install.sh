@@ -54,7 +54,7 @@ sed -i 's/#library_import_dir.*/library_import_dir: \//'  galaxy.yml
 echo "  database_connection: postgresql:///galaxy_test" | cat >> galaxy.yml
 
 # add admin e-mail user
-sed -i 's/#admin_users: null/admin_users: irida@irida.ca/' galaxy.yml
+sed -i 's/#admin_users:.*/admin_users: "irida@irida.ca"/' galaxy.yml
 
 # run galaxy on port 8888 instead of 8080; Tomcat runs on 8080 by default.
 sed -i "s|http: 127.0.0.1:8080|http: 127.0.0.1:$galaxy_port|" galaxy.yml
