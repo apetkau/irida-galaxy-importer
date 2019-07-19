@@ -1,4 +1,3 @@
-sudo: required
 language: java
 
 dist: xenial
@@ -26,9 +25,6 @@ env:
 cache:
   directories:
     - $HOME/.m2
-
-before_install:
-  - sudo apt-get install libgconf-2-4
 
 install:
   - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
