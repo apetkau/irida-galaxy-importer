@@ -64,4 +64,11 @@ check_dependencies
 source $SCRIPT_DIR/.ci/install_deps.sh $CHROMEDRIVER_VERSION
 
 pushd irida_import
-xvfb-run py.test -s
+
+# If xvfb is already started, don't bother with 'xvfb-run'. Useful for TravisCI tests.
+if [ "$XVFB_STARTED" = "1" ];
+then
+	py.test -s
+else
+	xvfb-run py.test -s
+fi
