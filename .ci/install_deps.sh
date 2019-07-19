@@ -10,8 +10,8 @@ pip install -U bioblend pytest pytest-cov pytest-mock requests==2.6 requests-oau
 TEST_CHROMEDRIVER_VERSION=`chromedriver --version | sed -e 's/^ChromeDriver //' -e 's/ (.*//' 2>/dev/null`
 if [ "$TEST_CHROMEDRIVER_VERSION" != "$CHROMEDRIVER_VERSION" ];
 then
-	echo "Downloading Chromedriver Version: $CHROME_DRIVER_VERSION"
-	wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+	echo "Downloading Chromedriver Version: $CHROMEDRIVER_VERSION"
+	wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
 	unzip /tmp/chromedriver_linux64.zip -d .venv/bin
 	chmod 755 .venv/bin/chromedriver
 else
