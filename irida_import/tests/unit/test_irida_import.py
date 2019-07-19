@@ -17,7 +17,6 @@ from ...sample_file import SampleFile
 from ...sample_pair import SamplePair
 
 
-@pytest.mark.unit
 class TestIridaImport:
 
     """ TestIridaImport performs unit tests on IridaImport."""
