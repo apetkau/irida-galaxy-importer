@@ -4,7 +4,6 @@ language: java
 dist: xenial
 
 services:
-  - docker
   - mysql
   - postgresql
   - xvfb
@@ -21,6 +20,7 @@ env:
     - "MYSQL_USER=test"
     - "MYSQL_PASSWORD=test"
     - "MAVEN_OPTS=-Djava.awt.headless=true"
+    - "CHROMEDRIVER_VERSION=75.0.3770.140"
 
 cache:
   directories:
@@ -34,6 +34,6 @@ install:
   - mysql -e "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'localhost';"
   - psql -c 'create database galaxy_test;' -U postgres
   - mvn -version
-  - source .ci/install_deps.sh
+  - source .ci/install_deps.sh $CHROMEDRIVER_VERSION
 
-script: pushd irida_import && py.test -s && popd
+script: ./run-tests.sh
