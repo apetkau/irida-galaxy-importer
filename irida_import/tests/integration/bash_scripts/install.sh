@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# This file is adapted from https://irida.corefacility.ca/gitlab/aaron.petkau/irida-public/blob/master/galaxy/install_galaxy.sh
-
 args=("$@")
 tool_loc=${args[0]}
 galaxy_port=${args[1]}
@@ -12,7 +10,7 @@ pushd repos
 echo "Downloading IRIDA..."
 git clone https://github.com/phac-nml/irida.git
 pushd irida
-git checkout development > irida-checkout.log 2>&1
+git checkout master > irida-checkout.log 2>&1
 git fetch
 git reset --hard
 git clean -fd
@@ -30,7 +28,7 @@ echo "IRIDA has been installed"
 echo "Downloading Galaxy..."
 git clone https://github.com/galaxyproject/galaxy/ > galaxy-clone.log 2>&1
 pushd galaxy
-git checkout release_19.05 > galaxy-checkout.log 2>&1
+git checkout master > galaxy-checkout.log 2>&1
 git fetch
 git reset --hard
 git clean -fd
